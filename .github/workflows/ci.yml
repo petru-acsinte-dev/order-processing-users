@@ -28,6 +28,8 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ github.actor }}
           MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          JWT_SECRET_TEST: ${{ secrets.JWT_SECRET_TEST }}
+          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
