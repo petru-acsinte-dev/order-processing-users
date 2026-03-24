@@ -1,10 +1,12 @@
 package com.orderprocessing.users.security;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +33,12 @@ public class JWTService implements JWTValidator {
 
 	public String generateToken(UserDetails userDetails) {
 		final Date created = new Date();
+		final List<String> roles = userDetails.getAuthorities().stream()
+	            .map(GrantedAuthority::getAuthority)
+	            .toList();
 		return Jwts.builder()
 			.subject(userDetails.getUsername())
+			.claim("roles", roles) //$NON-NLS-1$
 			.issuedAt(created)
 			.expiration(new Date(created.getTime() + expiration))
 			.signWith(secretKey)
@@ -53,6 +59,17 @@ public class JWTService implements JWTValidator {
 	public String getUsername(String token) {
 		final Claims claims = extractClaims(token);
 		return claims.getSubject();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<String> getRoles(String token) {
+	    final Claims claims = extractClaims(token);
+	    final List<?> roles = claims.get("roles", List.class); //$NON-NLS-1$
+	    return roles.stream()
+	    			.filter(String.class::isInstance)
+	    			.map(String.class::cast)
+	    			.toList();
 	}
 
 	private boolean isTokenExpired(String token) {

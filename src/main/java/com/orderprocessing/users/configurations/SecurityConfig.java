@@ -38,8 +38,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    JWTFilter jwtFilter(JWTService jwtService, UserDetailsService userDetailsService) {
-        return new JWTFilter(jwtService, userDetailsService);
+    JWTFilter jwtFilter(JWTService jwtService) {
+        return new JWTFilter(jwtService);
     }
 
     @Bean

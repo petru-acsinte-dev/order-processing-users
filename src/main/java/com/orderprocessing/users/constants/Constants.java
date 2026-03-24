@@ -17,4 +17,9 @@ public class Constants {
 	 * Login endpoint
 	 */
 	public static final String LOGIN_PATH = "/login/auth"; //$NON-NLS-1$
+
+	/**
+	 * Authentication bearer
+	 */
+	public static final String BEARER = "Bearer "; //$NON-NLS-1$
 }
