@@ -11,6 +11,9 @@ import com.orderprocessing.users.repositories.CustomerUserRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+/**
+ * Helper bean that loads the user details from the database based on the user identifier.
+ */
 public class UserDetailsSecurityService implements org.springframework.security.core.userdetails.UserDetailsService {
 
 	private final CustomerUserRepository repository;

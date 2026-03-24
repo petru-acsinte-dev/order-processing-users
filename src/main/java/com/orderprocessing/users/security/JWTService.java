@@ -18,6 +18,10 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 @Service
+/**
+ * Bean that generates tokens (with roles claim embedded), validates tokens and extracts token info.
+ * Holds secret key and expiration defined in application.properties.
+ */
 public class JWTService implements JWTValidator {
 
 	private final SecretKey secretKey;
@@ -62,7 +66,6 @@ public class JWTService implements JWTValidator {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<String> getRoles(String token) {
 	    final Claims claims = extractClaims(token);
 	    final List<?> roles = claims.get("roles", List.class); //$NON-NLS-1$

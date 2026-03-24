@@ -23,9 +23,13 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Intercepts POST requests against /login/auth endpoint.
+ * Authenticates credentials via AuthenticationManager, then generates and returns JWT token on success.
+ */
 public class JsonLoginFilter extends GenericFilter {
 
-	private static final long serialVersionUID = -7743326794840371119L;
+	private static final long serialVersionUID = 1L;
 
 	private final transient AuthenticationManager authManager;
     private final transient JWTService jwtService;

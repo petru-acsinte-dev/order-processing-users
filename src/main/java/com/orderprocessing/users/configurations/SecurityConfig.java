@@ -23,6 +23,12 @@ import com.orderprocessing.users.security.JsonLoginFilter;
 
 @Configuration
 @EnableWebSecurity
+/**
+ * Configuration class that assembles the filter chain.
+ * Allows /login/auth, Swagger UI and actuator endpoints (info and health).
+ * Requires JWT authentication on everything else.
+ * Adds {@link JsonLoginFilter} before {@link JWTFilter} in the filter chain.
+ */
 public class SecurityConfig {
 
 	private final UserDetailsService userDetails;
