@@ -7,18 +7,36 @@ CREATE TABLE users.roles (
 	role VARCHAR(50) NOT NULL UNIQUE
 );
 
+COMMENT ON COLUMN users.roles.role 
+	IS 'Predefined user role; e.g. ROLE_ADMIN, ROLE_USER';
+
+-- initializing predefined roles
+INSERT INTO users.roles (id, role) VALUES
+	(0, 'ROLE_ADMIN'),
+	(1, 'ROLE_USER');
+
 -- User status table
 CREATE TABLE users.status (
 	id SMALLINT PRIMARY KEY,
 	status VARCHAR(50) NOT NULL UNIQUE
 );
 
+COMMENT ON COLUMN users.status.status 
+	IS 'Predefined user status; e.g. ACTIVE, LOCKED, ARCHIVED';
+
+-- predefined status values
+INSERT INTO users.status (id, status) VALUES
+	(0, 'ACTIVE'), 
+	(1, 'LOCKED'), 
+	(2, 'ARCHIVED');
+
 -- CustomerUser table
 CREATE TABLE users.customer_user (
     id BIGSERIAL PRIMARY KEY,
     external_id UUID NOT NULL UNIQUE,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(254) NOT NULL UNIQUE,
+    "password" VARCHAR(254) NOT NULL,
+    email VARCHAR(254) NOT NULL UNIQUE,
     role_id SMALLINT NOT NULL,
     status_id SMALLINT NOT NULL,
     created TIMESTAMPTZ DEFAULT NOW(),
@@ -46,29 +64,12 @@ COMMENT ON COLUMN users.customer_user.address_line1
 COMMENT ON COLUMN users.customer_user.address_line2 
 	IS 'Shipping address, part 2, if necessary';
 
-COMMENT ON COLUMN users.roles.role 
-	IS 'Predefined user role; e.g. ADMIN, USER';
-
-COMMENT ON COLUMN users.status.status 
-	IS 'Predefined user status; e.g. ACTIVE, LOCKED, ARCHIVED';
-
--- initializing data
--- roles
-INSERT INTO users.roles (id, role) VALUES
-	(0, 'ADMIN'),
-	(1, 'USER');
-
--- status
-INSERT INTO users.status (id, status) VALUES
-	(0, 'ACTIVE'), 
-	(1, 'LOCKED'), 
-	(2, 'ARCHIVED');
-
--- default admin
+-- predefined ADMIN user
 INSERT INTO users.customer_user
 (	id, 
 	external_id, 
-	username, 
+	username,
+	password, 
 	email, 
 	role_id, 
 	status_id, 
@@ -77,10 +78,13 @@ INSERT INTO users.customer_user
 VALUES
 (	0, --reserved, outside sequence 
 	'00000000-0000-0000-0000-000000000000', 
-	'ADMIN', 
+	'ADMIN',
+	'$2a$10$YyyI0uCSyQij19uKzs9.yOzbMZxZVld2VGv2/VPYsNerWvqUKrBvm',
 	'admin@order.processing.com', 
 	0, -- admin role 
 	0, -- active status
 	now(), 
 	'3401 Hillview Avenue, Palo Alto, CA 94304, USA'
 );
+
+COMMIT;
