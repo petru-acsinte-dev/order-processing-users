@@ -1,5 +1,7 @@
 package com.orderprocessing.users.services;
 
+import static com.orderprocessing.common.constants.Constants.PAGE_SIZE_HARD_LIMIT;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -186,7 +188,7 @@ public class CustomerUserService {
 			}
 			final int requestSize = pageable.getPageSize();
 			if (requestSize > 0
-			&& requestSize <= com.orderprocessing.common.constants.Constants.PAGE_SIZE_HARD_LIMIT // system imposed limit
+			&& requestSize <= PAGE_SIZE_HARD_LIMIT // system imposed limit
 			&& requestSize <= userProps.getMaxPageSize()) {
 				pageSize = requestSize;
 			}

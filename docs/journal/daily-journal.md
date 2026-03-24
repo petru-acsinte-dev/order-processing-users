@@ -9,5 +9,5 @@ OrderProcessor - Users microservice - Daily journal
 
 2026-03-24
 -
-- ported user classes from monolith to the users microservice project
-- 
+- ported user classes from monolith: dao, entities, repos, service, controllers, configurations, mappers, props, exceptions, constants
+- ported security specific classes, including configurations, controller, JWT service, Json filter and custom UserDetailsSecurityService

@@ -12,4 +12,9 @@ public class Constants {
 	 * Users main endpoint
 	 */
 	public static final String USERS_PATH = "/users"; //$NON-NLS-1$
+
+	/**
+	 * Login endpoint
+	 */
+	public static final String LOGIN_PATH = "/login/auth"; //$NON-NLS-1$
 }
