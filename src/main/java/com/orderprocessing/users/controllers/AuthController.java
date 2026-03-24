@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +13,7 @@ import com.orderprocessing.users.constants.Constants;
 import com.orderprocessing.users.security.AuthError;
 import com.orderprocessing.users.security.AuthRequest;
 import com.orderprocessing.users.security.AuthResponse;
+import com.orderprocessing.users.security.AuthenticatedUser;
 import com.orderprocessing.users.security.JWTService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,7 +51,7 @@ public class AuthController {
 		// check the user/password against storage through UserDetailsSecurityService
 		final Authentication authentication = authManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-		final UserDetails details = (UserDetails) authentication.getPrincipal();
+		final AuthenticatedUser details = (AuthenticatedUser) authentication.getPrincipal();
 		// generate authenticated token
 		final String token = jwtService.generateToken(details);
 		return ResponseEntity.ok(new AuthResponse(token));

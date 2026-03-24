@@ -1,7 +1,8 @@
 package com.orderprocessing.users.security;
 
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.List;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +25,15 @@ public class UserDetailsSecurityService implements org.springframework.security.
 
 	@Transactional
 	@Override
-	public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
-		return repository.findByUsername(identifier)
-				.map(user -> User.builder()
-						.username(user.getUsername())
-						.password(user.getPassword())
-						.roles(user.getRole().getRole())
-						.disabled( ! UserStatus.ACTIVE.equals(user.getStatus().getStatus()))
-						.build())
-				.orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", identifier))); //$NON-NLS-1$
+	public AuthenticatedUser loadUserByUsername(String identifier) throws UsernameNotFoundException {
+		final var dbUser = repository.findByUsername(identifier)
+							.orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found", identifier))); //$NON-NLS-1$
+		final var role = new SimpleGrantedAuthority(dbUser.getRole().getRole());
+		return new AuthenticatedUser(dbUser.getExternalId(),
+							dbUser.getUsername(),
+							dbUser.getPassword(),
+							UserStatus.ACTIVE.equals(dbUser.getStatus().getStatus()),
+							List.of(role));
 	}
 
 }

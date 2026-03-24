@@ -35,14 +35,15 @@ public class JWTService implements JWTValidator {
 		this.expiration = expiration;
 	}
 
-	public String generateToken(UserDetails userDetails) {
+	public String generateToken(AuthenticatedUser authenticatedUser) {
 		final Date created = new Date();
-		final List<String> roles = userDetails.getAuthorities().stream()
+		final List<String> roles = authenticatedUser.getAuthorities().stream()
 	            .map(GrantedAuthority::getAuthority)
 	            .toList();
 		return Jwts.builder()
-			.subject(userDetails.getUsername())
+			.subject(authenticatedUser.getUsername())
 			.claim("roles", roles) //$NON-NLS-1$
+			.claim("externalId", authenticatedUser.getExternalId()) //$NON-NLS-1$
 			.issuedAt(created)
 			.expiration(new Date(created.getTime() + expiration))
 			.signWith(secretKey)

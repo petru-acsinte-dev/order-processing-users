@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orderprocessing.users.constants.Constants;
@@ -58,7 +57,7 @@ public class JsonLoginFilter extends GenericFilter {
 	        		final Authentication authentication = authManager.authenticate(
 	                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
-	        		final String token = jwtService.generateToken((UserDetails) authentication.getPrincipal());
+	        		final String token = jwtService.generateToken((AuthenticatedUser) authentication.getPrincipal());
 
 	        		resp.setContentType(MediaType.APPLICATION_JSON_VALUE);
 	        		writer.write(String.format("{\"token\":\"%s\"}", token)); //$NON-NLS-1$
