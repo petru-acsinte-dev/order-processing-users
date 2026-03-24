@@ -13,5 +13,15 @@
     "name": "orders.demo.users.default-sort-attribute",
     "type": "java.lang.String",
     "description": "Attribute to sort the listed users by"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "The JWT secret key"
+  },
+  {
+    "name": "jwt.expiration",
+    "type": "java.lang.String",
+    "description": "The JWT expiration period"
   }
 ]}
