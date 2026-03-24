@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "orders.demo.users.page-size",
+    "type": "java.lang.Integer",
+    "description": "Preferred page size when listing available users"
+  },
+  {
+    "name": "orders.demo.users.max-page-size",
+    "type": "java.lang.Integer",
+    "description": "Maximum page size when listing available users. Cannot be higher than system imposed limit of 10_000."
+  },
+  {
+    "name": "orders.demo.users.default-sort-attribute",
+    "type": "java.lang.String",
+    "description": "Attribute to sort the listed users by"
+  }
+]}
