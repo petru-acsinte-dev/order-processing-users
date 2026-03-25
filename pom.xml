@@ -11,7 +11,7 @@
 	<groupId>com.orderprocessing</groupId>
 	<artifactId>order-processing-users</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
+	<name>order-processing-users</name>
 	<description/>
 	<url/>
 	<licenses>
