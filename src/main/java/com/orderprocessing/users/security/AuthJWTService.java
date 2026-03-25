@@ -8,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.orderprocessing.common.constants.Constants;
-import com.orderprocessing.common.filters.JWTValidator;
 import com.orderprocessing.common.filters.JWTValidatorCommon;
 
 import io.jsonwebtoken.Jwts;
@@ -18,7 +17,7 @@ import io.jsonwebtoken.Jwts;
  * Bean that generates tokens (with roles claim and user external id embedded) and extracts token information.
  * Holds secret key and expiration defined in application.properties.
  */
-public class AuthJWTService extends JWTValidatorCommon implements JWTValidator {
+public class AuthJWTService extends JWTValidatorCommon {
 
 	// represented in ms
 	private final long expiration;
