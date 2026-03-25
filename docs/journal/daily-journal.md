@@ -21,3 +21,4 @@ OrderProcessor - Users microservice - Daily journal
 - fixed user constants; adopted common JWT validation; 
 - injected user external id into the generated token
 - housekeeping custom properties
+- changed CI to build Docker file for the users service
