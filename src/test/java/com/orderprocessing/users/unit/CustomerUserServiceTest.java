@@ -1,5 +1,6 @@
 package com.orderprocessing.users.unit;
 
+import static com.orderprocessing.common.constants.Constants.ADMIN_UUID0;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,7 +29,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.orderprocessing.common.exceptions.UnauthorizedOperationException;
 import com.orderprocessing.common.tests.AbstractUnitTestBase;
 import com.orderprocessing.common.tests.TestConstants;
-import com.orderprocessing.users.constants.Constants;
 import com.orderprocessing.users.constants.UserRole;
 import com.orderprocessing.users.constants.UserStatus;
 import com.orderprocessing.users.dto.AddressDTO;
@@ -150,7 +150,7 @@ public class CustomerUserServiceTest extends AbstractUnitTestBase {
 	@DisplayName("Tests deleting the admin user")
 	void testAdminAsAdmin() {
 		assertThrows(UnauthorizedOperationException.class,
-				()-> service.deleteUser(Constants.ADMIN_UUID0));
+				()-> service.deleteUser(ADMIN_UUID0));
 	}
 
 	@Test
@@ -265,7 +265,7 @@ public class CustomerUserServiceTest extends AbstractUnitTestBase {
 		admin.setId(0L);
 		admin.setUsername(TestConstants.ADMIN);
 		admin.setEmail("admin@order.processing.com"); //$NON-NLS-1$
-		admin.setExternalId(Constants.ADMIN_UUID0);
+		admin.setExternalId(ADMIN_UUID0);
 		admin.setCreated(LocalDateTime.now());
 		admin.setRole(new Role((short) 0, UserRole.ADMIN));
 		admin.setStatus(new Status((short) 0, ACTIVE));

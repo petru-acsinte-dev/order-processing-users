@@ -15,9 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.orderprocessing.common.constants.Constants;
 import com.orderprocessing.common.exceptions.UnauthorizedOperationException;
 import com.orderprocessing.common.security.SecurityUtils;
-import com.orderprocessing.users.constants.Constants;
 import com.orderprocessing.users.constants.UserRole;
 import com.orderprocessing.users.constants.UserStatus;
 import com.orderprocessing.users.dto.CreateCustomerUserRequest;

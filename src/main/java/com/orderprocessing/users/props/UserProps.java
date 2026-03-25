@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.orderprocessing.common.constants.Constants;
 
 @Component
-@ConfigurationProperties(prefix = "orders.demo.users")
+@ConfigurationProperties(prefix = "com.orderprocessing.users")
 public class UserProps {
 
 	private int pageSize;

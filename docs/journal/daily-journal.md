@@ -15,3 +15,9 @@ OrderProcessor - Users microservice - Daily journal
 - reword the Flyway scripts into a fresh, clean users initialization script
 - removed non user related sample data
 - integrated user external id into JWT token (to be used by future orders and shipments services)
+
+2026-03-25
+-
+- fixed user constants; adopted common JWT validation; 
+- injected user external id into the generated token
+- housekeeping custom properties

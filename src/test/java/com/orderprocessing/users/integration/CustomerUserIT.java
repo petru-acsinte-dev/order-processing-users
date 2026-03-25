@@ -1,6 +1,6 @@
 package com.orderprocessing.users.integration;
 
-import static com.orderprocessing.users.constants.Constants.ADMIN_UUID0;
+import static com.orderprocessing.common.constants.Constants.ADMIN_UUID0;
 import static com.orderprocessing.users.constants.Constants.USERS_PATH;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
