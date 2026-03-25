@@ -2,6 +2,7 @@ package com.orderprocessing.users.security;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.orderprocessing.common.constants.Constants;
 import com.orderprocessing.common.filters.JWTValidator;
 
 import io.jsonwebtoken.Claims;
@@ -42,8 +44,8 @@ public class JWTService implements JWTValidator {
 	            .toList();
 		return Jwts.builder()
 			.subject(authenticatedUser.getUsername())
-			.claim("roles", roles) //$NON-NLS-1$
-			.claim("externalId", authenticatedUser.getExternalId()) //$NON-NLS-1$
+			.claim(Constants.ROLES, roles)
+			.claim(Constants.PARAM_EXTERNAL_ID, authenticatedUser.getExternalId())
 			.issuedAt(created)
 			.expiration(new Date(created.getTime() + expiration))
 			.signWith(secretKey)
@@ -67,9 +69,15 @@ public class JWTService implements JWTValidator {
 	}
 
 	@Override
+	public UUID getExternalId(String token) {
+		final Claims claims = extractClaims(token);
+		return UUID.fromString(claims.get(Constants.PARAM_EXTERNAL_ID, String.class));
+	}
+
+	@Override
 	public List<String> getRoles(String token) {
 	    final Claims claims = extractClaims(token);
-	    final List<?> roles = claims.get("roles", List.class); //$NON-NLS-1$
+	    final List<?> roles = claims.get(Constants.ROLES, List.class);
 	    return roles.stream()
 	    			.filter(String.class::isInstance)
 	    			.map(String.class::cast)
