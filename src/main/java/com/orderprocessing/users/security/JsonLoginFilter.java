@@ -31,10 +31,10 @@ public class JsonLoginFilter extends GenericFilter {
 	private static final long serialVersionUID = 1L;
 
 	private final transient AuthenticationManager authManager;
-    private final transient JWTService jwtService;
+    private final transient AuthJWTService jwtService;
     private final ObjectMapper objectMapper;
 
-    public JsonLoginFilter(AuthenticationManager authManager, JWTService jwtService, ObjectMapper objectMapper) {
+    public JsonLoginFilter(AuthenticationManager authManager, AuthJWTService jwtService, ObjectMapper objectMapper) {
         this.authManager = authManager;
         this.jwtService = jwtService;
         this.objectMapper = objectMapper;

@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orderprocessing.common.constants.Constants;
 import com.orderprocessing.common.filters.JWTFilter;
-import com.orderprocessing.users.security.JWTService;
+import com.orderprocessing.users.security.AuthJWTService;
 import com.orderprocessing.users.security.JsonLoginFilter;
 
 @Configuration
@@ -32,11 +32,11 @@ import com.orderprocessing.users.security.JsonLoginFilter;
 public class SecurityConfig {
 
 	private final UserDetailsService userDetails;
-    private final JWTService jwtService;
+    private final AuthJWTService jwtService;
     private final ObjectMapper objectMapper;
 
     public SecurityConfig(UserDetailsService userDetails,
-                          JWTService jwtService,
+                          AuthJWTService jwtService,
                           ObjectMapper objectMapper) {
         this.userDetails = userDetails;
         this.jwtService = jwtService;
@@ -44,7 +44,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    JWTFilter jwtFilter(JWTService jwtService) {
+    JWTFilter jwtFilter(AuthJWTService jwtService) {
         return new JWTFilter(jwtService);
     }
 

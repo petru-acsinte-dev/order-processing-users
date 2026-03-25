@@ -14,7 +14,7 @@ import com.orderprocessing.users.security.AuthError;
 import com.orderprocessing.users.security.AuthRequest;
 import com.orderprocessing.users.security.AuthResponse;
 import com.orderprocessing.users.security.AuthenticatedUser;
-import com.orderprocessing.users.security.JWTService;
+import com.orderprocessing.users.security.AuthJWTService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,9 +31,9 @@ public class AuthController {
 	private static Logger log = org.slf4j.LoggerFactory.getLogger(AuthController.class);
 
 	private final AuthenticationManager authManager;
-	private final JWTService jwtService;
+	private final AuthJWTService jwtService;
 
-	public AuthController(AuthenticationManager authManager, JWTService jwtService) {
+	public AuthController(AuthenticationManager authManager, AuthJWTService jwtService) {
 		this.authManager = authManager;
 		this.jwtService = jwtService;
 	}
