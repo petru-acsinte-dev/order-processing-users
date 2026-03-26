@@ -2,6 +2,8 @@ package com.orderprocessing.users.controllers;
 
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +18,8 @@ import io.swagger.v3.oas.annotations.Hidden;
 @RestControllerAdvice
 public class CustomUserControllerAdvice {
 
+	private static Logger log = LoggerFactory.getLogger(CustomUserControllerAdvice.class);
+
 	private final MessageSource messageSource;
 
 	public CustomUserControllerAdvice(MessageSource messageSource) {
@@ -24,6 +28,7 @@ public class CustomUserControllerAdvice {
 
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<ApiError> handleApiException(ApiException ex, Locale locale) {
+		log.error("Exception caught: {}", ex.getMessage(), ex); //$NON-NLS-1$
 		final String message = messageSource.getMessage(
                 ex.getMessageKey(),
                 ex.getArgs(),
