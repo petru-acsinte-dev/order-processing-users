@@ -28,7 +28,9 @@ public class CustomUserControllerAdvice {
 
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<ApiError> handleApiException(ApiException ex, Locale locale) {
-		log.error("Exception caught: {}", ex.getMessage(), ex); //$NON-NLS-1$
+		log.error("Exception caught: {}",  //$NON-NLS-1$
+				(null == ex.getMessage() ? ex.getClass().getCanonicalName() : ex.getMessage()),
+				ex);
 		final String message = messageSource.getMessage(
                 ex.getMessageKey(),
                 ex.getArgs(),

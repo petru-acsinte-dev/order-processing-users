@@ -3,6 +3,8 @@ package com.orderprocessing.users.controllers;
 import java.net.URI;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +44,8 @@ import jakarta.validation.Valid;
 @RequestMapping(path = Constants.USERS_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CustomUserController {
 
+	private final Logger log = LoggerFactory.getLogger(CustomUserController.class);
+
 	private final CustomerUserService service;
 
 	public CustomUserController(CustomerUserService service) {
@@ -66,6 +70,9 @@ public class CustomUserController {
 	public ResponseEntity<PagedResponse<CustomerUserResponse>> getUsers(@ParameterObject
 																		@Parameter(required = false)
 																		Pageable pageable) {
+		log.debug("getUsers(page={}, size={}, sort={})",  //$NON-NLS-1$
+				pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
+
 		final Page<CustomerUserResponse> page = service.findUsers(pageable);
 
 		return ResponseUtils.getPagedResponse(Constants.USERS_PATH, page);
@@ -87,6 +94,8 @@ public class CustomUserController {
 				content = @Content(schema = @Schema(hidden = true)))
 	public ResponseEntity<CustomerUserResponse> createUser(
 			@Valid @RequestBody CreateCustomerUserRequest createRequest) {
+		log.debug("createUser(email = {})", createRequest.getEmail()); //$NON-NLS-1$
+
 		final CustomerUserResponse newUser = service.createUser(createRequest);
 		return ResponseEntity
 			.created(URI.create("/users/" + newUser.getExternalId())) //$NON-NLS-1$
@@ -110,6 +119,8 @@ public class CustomUserController {
 	public ResponseEntity<CustomerUserResponse> updateUser(
 			@RequestParam (required = true) String externalId,
 			@Valid @RequestBody UpdateCustomerUserRequest updateRequest) {
+		log.debug("updateUser(externalId = {})", externalId); //$NON-NLS-1$
+
 		final UUID external = UUID.fromString(externalId);
 		final CustomerUserResponse updatedUser = service.updateUser(external, updateRequest);
 		return ResponseEntity
@@ -132,6 +143,8 @@ public class CustomUserController {
 				content = @Content(schema = @Schema(hidden = true)))
 	public ResponseEntity<CustomerUserResponse> deleteUser(
 			@RequestParam (required = true) String externalId) {
+		log.debug("deleteUser(externalId = {})", externalId); //$NON-NLS-1$
+		
 		final UUID external = UUID.fromString(externalId);
 		service.deleteUser(external);
 		return ResponseEntity
