@@ -22,3 +22,13 @@ OrderProcessor - Users microservice - Daily journal
 - injected user external id into the generated token
 - housekeeping custom properties
 - changed CI to build Docker file for the users service
+
+2026-03-26
+-
+- updated readme with more details about this users service
+- enabled actuator (more endpoints), logback
+- revisited serviceability
+
+2027-03-27
+-
+- Adopted common 0.4.0
