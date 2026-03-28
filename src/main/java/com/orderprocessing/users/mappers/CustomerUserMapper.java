@@ -1,5 +1,9 @@
 package com.orderprocessing.users.mappers;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -33,4 +37,11 @@ public interface CustomerUserMapper {
     @Mapping(target = "status", 	ignore = true)
 	void updateRequest(UpdateCustomerUserRequest request,
 					@MappingTarget CustomerUser customerUser);
+
+	default OffsetDateTime toOffsetDateTime(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
+            return null;
+        }
+        return localDateTime.atOffset(ZoneOffset.UTC);
+    }
 }

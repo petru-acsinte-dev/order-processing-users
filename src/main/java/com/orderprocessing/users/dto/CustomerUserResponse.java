@@ -1,6 +1,6 @@
 package com.orderprocessing.users.dto;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -14,7 +14,7 @@ public class CustomerUserResponse extends AbstractCustomerUserDTO {
 	private String username;
 
 	@Schema(description = "User creation date and time")
-	private LocalDateTime created;
+	private OffsetDateTime created;
 
 	@Schema(example = "USER", defaultValue = "USER")
 	private String role;
@@ -35,7 +35,7 @@ public class CustomerUserResponse extends AbstractCustomerUserDTO {
 	 * @param address The user's address.
 	 */
 	public CustomerUserResponse(String externalId, String username, String email,
-			LocalDateTime created, String role,
+			OffsetDateTime created, String role,
 			String status, AddressDTO address) {
 		super(email, address);
 		this.externalId = externalId;
@@ -61,11 +61,11 @@ public class CustomerUserResponse extends AbstractCustomerUserDTO {
 		this.username = username;
 	}
 
-	public LocalDateTime getCreated() {
+	public OffsetDateTime getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(OffsetDateTime created) {
 		this.created = created;
 	}
 

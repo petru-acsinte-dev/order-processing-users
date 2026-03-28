@@ -74,7 +74,7 @@ class UserMapperTest {
 			assertEquals(name, response.getUsername());
 			assertEquals(email, response.getEmail());
 			assertEquals(uuid.toString(), response.getExternalId());
-			assertEquals(created, response.getCreated());
+			assertEquals(created, response.getCreated().toLocalDateTime());
 			assertEquals(UserStatus.ACTIVE, response.getStatus());
 			assertEquals(UserRole.USER, response.getRole());
 			assertEquals(addressDTO, response.getAddress());

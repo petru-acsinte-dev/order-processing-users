@@ -32,3 +32,4 @@ OrderProcessor - Users microservice - Daily journal
 2027-03-27
 -
 - Adopted common 0.4.0
+- Replaced LocalDateTime with OffsetDateTime in API responses

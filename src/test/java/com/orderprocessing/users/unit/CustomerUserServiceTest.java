@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -250,7 +251,7 @@ public class CustomerUserServiceTest extends AbstractUnitTestBase {
 				new CustomerUserResponse(user.getExternalId().toString(),
 										user.getUsername(),
 										user.getEmail(),
-										user.getCreated(),
+										user.getCreated().atOffset(ZoneOffset.UTC),
 										user.getRole().getRole(),
 										user.getStatus().getStatus(),
 										addressMapper.toDTO(user.getAddress()));
