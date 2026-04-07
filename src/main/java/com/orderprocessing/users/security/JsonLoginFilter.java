@@ -47,7 +47,7 @@ public class JsonLoginFilter extends GenericFilter {
         final HttpServletRequest req = (HttpServletRequest) request;
         final HttpServletResponse resp = (HttpServletResponse) response;
 
-        if (Constants.LOGIN_PATH.equals(req.getRequestURI()) && HttpMethod.POST.name().equalsIgnoreCase(req.getMethod())) {
+        if (Constants.LOGIN_PATH.equals(req.getServletPath()) && HttpMethod.POST.name().equalsIgnoreCase(req.getMethod())) {
 
         	try (InputStream inStream = req.getInputStream();
         		PrintWriter writer = resp.getWriter()) {
